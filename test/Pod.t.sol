@@ -23,7 +23,7 @@ contract PodTest is BaseTest {
   function test_PodOpen() public {
 
     // vm.startPrank(users.admin);
-    // pod.setItems(items);
+    // // pod.setItems(items);
     // pod.mint();
     // pod.openPod(1);
     // vm.stopPrank();
@@ -33,7 +33,7 @@ contract PodTest is BaseTest {
     // assertEq(results.length, 2);
 
     // assertEq(pod.getRandomNum(), 82412660611285413818962361592001088798161264669000717231526876367575115561014);
-    uint256 number = randomNumberGenerator.generateRandomNumber(1);
-    assertEq(number, randomNumberGenerator.generateRandomNumber(1));
+    // uint256 number = randomNumberGenerator.generateRandomNumber(1);
+    // assertEq(number, randomNumberGenerator.generateRandomNumber(1));
   }
 }

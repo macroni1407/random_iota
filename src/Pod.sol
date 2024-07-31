@@ -9,7 +9,6 @@ import "forge-std/console.sol";
 
 contract Pod is ERC721, Ownable{
   uint256 public itemId;
-  Item[] public items;
 
   uint256 private nonce;
   IRandomNumberGenerator private randomNumberGenerator;
@@ -26,7 +25,8 @@ contract Pod is ERC721, Ownable{
     randomNumberGenerator = IRandomNumberGenerator(_randomNumberGenerator);
   }
 
-  function setItems(Item[] memory _items) external onlyOwner{
+  function mint (address user, Item[] memory _items) external onlyOwner{
+    ++itemId;
     for (uint256 i; i < _items.length; i++) {
       uint256 sumRate;
       for(uint256 j; j < _items[i].rates.length; ++j){
@@ -38,15 +38,11 @@ contract Pod is ERC721, Ownable{
       }
     }
 
+    Item[] storage items = itemInfo[itemId];
     for (uint256 i = 0; i < _items.length; i++) {
         items.push(_items[i]);
     }
-  }
-
-  function mint () external {
-    ++itemId;
-    itemInfo[itemId] = items;
-    _mint(msg.sender, itemId);
+    _mint(user, itemId);
   }
 
   function openPod(uint256 _itemId) public {
@@ -60,6 +56,8 @@ contract Pod is ERC721, Ownable{
       item.types = retrieveItems[i].types;
       // uint256 number = randomNumberGenerator.generateRandomNumber(nonce);
       uint256 value = randomNumberGenerator.generateRandomNumberWithLimit(nonce, 100);
+      console.log("value:", value);
+      
       uint256[] memory retrieveRates = retrieveItems[i].rates;
       for(uint256 j; j < retrieveRates.length; ++j){
         if(value <= retrieveRates[j]){
@@ -69,7 +67,7 @@ contract Pod is ERC721, Ownable{
       }
       resultItems.push(item);
     }
-    console.log("resultItems:", resultItems);
+    // console.log("resultItems:", resultItems);
 
     nonce++;
     delete itemInfo[_itemId];
