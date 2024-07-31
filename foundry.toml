@@ -29,7 +29,7 @@ tab_width = 4
 wrap_comments = true
 
 [rpc_endpoints]
-bnbtestnet = "${BNB_TESTNET_RPC_URL}"
+iotatestnet = "${IOTA_RPC_URL}"
 
 [etherscan]
-bnbtestnet = {key = "${BNB_API_KEY}", url = "${BNB_TESTNET_RPC_URL}"}
+iotatestnet = {key = "${IOTA_EXPLORER_API_KEY}", url = "${IOTA_RPC_URL}"}
