@@ -8,12 +8,12 @@ import {Item, Type, ResultItem} from './type/PodType.sol';
 import "forge-std/console.sol";
 
 contract Pod is ERC721, Ownable{
-  uint256 public itemId;
+  uint256 itemId;
 
   uint256 private nonce;
   IRandomNumberGenerator private randomNumberGenerator;
 
-  mapping(uint256 itemId => Item[] items) public itemInfo;
+  mapping(uint256 itemId => Item[] items) itemInfo;
   mapping(address => ResultItem[] resultItems) userItems;
 
   constructor(address _initialOwner, string memory _name, string memory _symbol, 
@@ -45,44 +45,44 @@ contract Pod is ERC721, Ownable{
     _mint(user, itemId);
   }
 
-  function openPod(uint256 _itemId) public {
-    require(ownerOf(_itemId) == msg.sender, "Caller is not the owner of item");
+  // function openPod(uint256 _itemId) external {
+  //   require(ownerOf(_itemId) == msg.sender, "Caller is not the owner of item");
 
-    Item[] memory retrieveItems = getItems(_itemId);
-    ResultItem[] storage resultItems = userItems[msg.sender];
+  //   Item[] memory retrieveItems = getItems(_itemId);
+  //   ResultItem[] storage resultItems = userItems[msg.sender];
 
-    for(uint256 i; i < retrieveItems.length; ++i){
-      ResultItem memory item;
-      item.types = retrieveItems[i].types;
-      // uint256 number = randomNumberGenerator.generateRandomNumber(nonce);
-      uint256 value = randomNumberGenerator.generateRandomNumberWithLimit(nonce, 100);
-      console.log("value:", value);
+  //   for(uint256 i; i < retrieveItems.length; ++i){
+  //     ResultItem memory item;
+  //     item.types = retrieveItems[i].types;
+  //     // uint256 number = randomNumberGenerator.generateRandomNumber(nonce);
+  //     uint256 value = randomNumberGenerator.generateRandomNumberWithLimit(nonce, 100);
+  //     console.log("value:", value);
       
-      uint256[] memory retrieveRates = retrieveItems[i].rates;
-      for(uint256 j; j < retrieveRates.length; ++j){
-        if(value <= retrieveRates[j]){
-          item.rate = retrieveRates[j];
-          break;
-        }
-      }
-      resultItems.push(item);
-    }
-    // console.log("resultItems:", resultItems);
+  //     uint256[] memory retrieveRates = retrieveItems[i].rates;
+  //     for(uint256 j; j < retrieveRates.length; ++j){
+  //       if(value <= retrieveRates[j]){
+  //         item.rate = retrieveRates[j];
+  //         break;
+  //       }
+  //     }
+  //     resultItems.push(item);
+  //   }
+  //   // console.log("resultItems:", resultItems);
 
-    nonce++;
-    delete itemInfo[_itemId];
-    _burn(_itemId);
-  }
+  //   nonce++;
+  //   delete itemInfo[_itemId];
+  //   _burn(_itemId);
+  // }
 
-  function getItems(uint256 _itemId) public view returns (Item[] memory){
+  function getItems(uint256 _itemId) external view returns (Item[] memory){
     return itemInfo[_itemId];
   }
 
-  function getResultItems(address user) public view returns(ResultItem[] memory){
+  function getResultItems(address user) external view returns(ResultItem[] memory){
     return userItems[user];
   }
 
-  function getRandomNum() public returns (uint256){
+  function getRandomNum() external returns (uint256){
     return randomNumberGenerator.generateRandomNumber(nonce);
   }
 }

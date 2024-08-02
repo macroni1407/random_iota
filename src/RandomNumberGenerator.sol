@@ -2,6 +2,7 @@
 pragma solidity ^0.8.19;
 
 import "@iota/iscmagic/ISC.sol";
+import "forge-std/console.sol";
 
 /**
  * @title Random Number Generator Contract
@@ -13,7 +14,6 @@ import "@iota/iscmagic/ISC.sol";
 contract RandomNumberGenerator {
 
     constructor() {}
-
     /**
      * @notice Generates a random number derived from user-provided nonce and intrinsic blockchain entropy.
      * @dev This method generates an unbounded random number by hashing the combined entropy of the ISCSandbox, sender's address,
@@ -22,15 +22,10 @@ contract RandomNumberGenerator {
      * @return A pseudo-random number generated using blockchain entropy and user-provided nonce.
      */
     function generateRandomNumber(uint256 nonce) public view returns (uint256) {
-        uint256 randomWord = uint256(
-            keccak256(
-                abi.encode(
-                    ISC.sandbox.getEntropy(),
-                    msg.sender,
-                    nonce
-                )
-            )
-        );
+        bytes32 entropy = ISC.sandbox.getEntropy();
+        // console.logBytes32(entropy);  // Log entropy for debugging
+        bytes32 combined = keccak256(abi.encode(entropy, msg.sender, nonce));
+        uint256 randomWord = uint256(combined);
         return uint256(keccak256(abi.encode(randomWord)));
     }
 
@@ -43,16 +38,14 @@ contract RandomNumberGenerator {
      * @return A pseudo-random number less than the specified upper limit, ensuring it fits within the desired range.
      */
     function generateRandomNumberWithLimit(uint256 nonce, uint256 lessThan) public view returns (uint256) {
-        uint256 randomWord = uint256(
-            keccak256(
-                abi.encode(
-                    ISC.sandbox.getEntropy(),
-                    msg.sender,
-                    nonce
-                )
-            )
-        );
+        console.log(uint256(333));       
+        bytes32 entropy = ISC.sandbox.getEntropy();
+        console.log(uint256(123));
+        console.logBytes32(entropy);  // Log entropy for debugging
+        bytes32 combined = keccak256(abi.encode(entropy, msg.sender, nonce));
+        uint256 randomWord = uint256(combined);
         uint256 newRand = uint256(keccak256(abi.encode(randomWord)));
         return newRand % lessThan;
     }
+
 }
