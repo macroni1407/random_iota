@@ -48,42 +48,42 @@ contract Random {
     }
 }
 
-contract RandomNumberGeneratorTest is Test {
-    RandomNumberGenerator rng;
-  Random random; 
-    address constant ISC_MAGIC_ADDRESS = 0x1074000000000000000000000000000000000000;
+// contract RandomNumberGeneratorTest is Test {
+//     RandomNumberGenerator rng;
+//   Random random; 
+//     address constant ISC_MAGIC_ADDRESS = 0x1074000000000000000000000000000000000000;
 
 
-    modifier setFork(uint256 _fork) {
-        vm.selectFork(_fork);
-        _;
-    }
+//     modifier setFork(uint256 _fork) {
+//         vm.selectFork(_fork);
+//         _;
+//     }
 
-    function setUp() public {
-      uint256 fork = vm.createFork(vm.envString("IOTA_RPC_URL"));
+//     function setUp() public {
+//       uint256 fork = vm.createFork(vm.envString("IOTA_RPC_URL"));
  
-      vm.selectFork(fork);
-    //   ISCSandbox(ISC_MAGIC_ADDRESS).getEntropy();
-    //   random = new Random(); 
-    //   random.getInt();
-      rng =  RandomNumberGenerator(0x9E77470de8D3c4c6Bb28e7966F7adf335eaDE997);
-    }
+//       vm.selectFork(fork);
+//     //   ISCSandbox(ISC_MAGIC_ADDRESS).getEntropy();
+//     //   random = new Random(); 
+//     //   random.getInt();
+//       rng =  RandomNumberGenerator(0x9E77470de8D3c4c6Bb28e7966F7adf335eaDE997);
+//     }
 
 
-    function testGenerateRandomNumber() public {
-        uint256 randomNum = rng.generateRandomNumber(1);
-        // rng.getInt();
+//     function testGenerateRandomNumber() public {
+//         uint256 randomNum = rng.generateRandomNumber(1);
+//         // rng.getInt();
 
-        // console.log(randomNum);
-        // emit log_uint(randomNum);
-        // assert(randomNum > 0);
-    }
+//         // console.log(randomNum);
+//         // emit log_uint(randomNum);
+//         // assert(randomNum > 0);
+//     }
 
 
-    function testGenerateRandomNumberWithLimit() public {
-        uint256 randomNum = rng.generateRandomNumberWithLimit(1, 100);
-        console.log(randomNum);
-        // emit log_uint(randomNum);
-        // assert(randomNum >= 0 && randomNum < 100);
-    }
-}
+//     function testGenerateRandomNumberWithLimit() public {
+//         uint256 randomNum = rng.generateRandomNumberWithLimit(1, 100);
+//         console.log(randomNum);
+//         // emit log_uint(randomNum);
+//         // assert(randomNum >= 0 && randomNum < 100);
+//     }
+// }

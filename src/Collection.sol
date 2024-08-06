@@ -20,29 +20,29 @@ contract Collection is ERC721{
   }
 
   function mint(address _to, uint256 _itemId, Type _type, uint256 _rate) public {
-      require(pod.ownerOf(_itemId) == _to, "Not authorize");
-      string memory model = _getModel(_type);
-      string memory tokenUrl = string.concat(baseUrl, model, _rate.toString(), tokenId.toString());
-      _mint(_to, tokenId);
-      _setTokenURI(tokenId, tokenUrl);
-      ++tokenId;
-    }
+    require(pod.ownerOf(_itemId) == _to, "Not authorize");
+    string memory model = _getModel(_type);
+    string memory tokenUrl = string.concat(baseUrl, model, _rate.toString(), tokenId.toString());
+    _mint(_to, tokenId);
+    _setTokenURI(tokenId, tokenUrl);
+    ++tokenId;
+  }
 
-    function tokenURI(uint256 _tokenId) public view override returns (string memory) {
-        require(_tokenId > 0 && _tokenId < tokenId, "ERC721Metadata: URI query for nonexistent token");
-        return _tokenURIs[_tokenId];
-    }
+  function tokenURI(uint256 _tokenId) public view override returns (string memory) {
+      require(_tokenId > 0 && _tokenId < tokenId, "ERC721Metadata: URI query for nonexistent token");
+      return _tokenURIs[_tokenId];
+  }
 
-    function _setTokenURI(uint256 _tokenId, string memory tokenUrl) internal virtual {
-        require(_tokenId > 0 && _tokenId < tokenId, "ERC721Metadata: URI set of nonexistent token");
-        _tokenURIs[_tokenId] = tokenUrl;
-    }
+  function _setTokenURI(uint256 _tokenId, string memory tokenUrl) internal virtual {
+      require(_tokenId > 0 && _tokenId < tokenId, "ERC721Metadata: URI set of nonexistent token");
+      _tokenURIs[_tokenId] = tokenUrl;
+  }
 
-    function _getModel(Type types) internal pure returns (string memory){
-      if(types == Type.K9){
-        return "K9";
-      } else if(types == Type.SEELS){
-        return "SEELS";
-      }
+  function _getModel(Type types) internal pure returns (string memory){
+    if(types == Type.K9){
+      return "K9";
+    } else if(types == Type.SEELS){
+      return "SEELS";
     }
+  }
 }

@@ -2,6 +2,6 @@
 pragma solidity ^0.8.19;
 
 interface IRandomNumberGenerator {
-  function generateRandomNumber ( uint256 nonce ) external returns ( uint256 );
-  function generateRandomNumberWithLimit ( uint256 nonce, uint256 lessThan ) external returns ( uint256 );
+  function generateRandomNumber () external returns ( uint256 );
+  function generateRandomNumberWithLimit (uint256 lessThan ) external returns ( uint256 );
 }

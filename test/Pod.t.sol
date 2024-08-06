@@ -21,7 +21,7 @@ contract PodTest is BaseTest {
   function setUp() public {
     randomNumberGenerator = new RandomNumberGenerator();
     
-    pod = new Pod(users.admin, "Pod", "P", address(randomNumberGenerator), 1);
+    pod = new Pod(users.admin, "Pod", "P", address(randomNumberGenerator));
   }
 
   // function test_PodOpen() public {

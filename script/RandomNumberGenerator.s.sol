@@ -2,15 +2,24 @@
 pragma solidity ^0.8.19;
 
 import { console } from "forge-std/console.sol";
+// import { IRandomNumberGenerator } from "../src/interfaces/IRandomNumberGenerator.sol";
 import { RandomNumberGenerator } from "../src/RandomNumberGenerator.sol";
 import { BaseScript } from "./Base.s.sol";
 
 contract RandomNumberGeneratorScript is BaseScript {
+
+    // IRandomNumberGenerator randomNumberGenerator;
+    RandomNumberGenerator randomNumberGenerator;
     function run() public broadcast {
             
-        RandomNumberGenerator randomNumberGenerator = new RandomNumberGenerator();
-        randomNumberGenerator.generateRandomNumber(1);
-
+        randomNumberGenerator = RandomNumberGenerator(0x657509345569785547B7FB7e407CF3F2D34E5c57);
+        // randomNumberGenerator = new RandomNumberGenerator();
+        console.log("address", address(randomNumberGenerator));
+        uint256 value = randomNumberGenerator.generateRandomNumber();
+        console.log("randomNumberGenerator", value);
+        console.log("randomNum", randomNumberGenerator.randomNum());
+        
+            
         // console.logAddress(address(randomNumberGenerator));
     }
 }
